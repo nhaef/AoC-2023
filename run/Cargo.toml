@@ -1,0 +1,8 @@
+[package]
+name = "run"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+day_1 = { version = "0.1.0", path = "../day_1" }
+run_trait = { version = "0.1.0", path = "../run_trait" }
