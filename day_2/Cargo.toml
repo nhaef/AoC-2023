@@ -1,9 +1,10 @@
 [package]
-name = "run"
+name = "day_2"
 version = "0.1.0"
 edition = "2021"
 
+[lib]
+crate-type = ["lib"]
+
 [dependencies]
-day_1 = { version = "0.1.0", path = "../day_1" }
-day_2 = { version = "0.1.0", path = "../day_2" }
 run_trait = { version = "0.1.0", path = "../run_trait" }

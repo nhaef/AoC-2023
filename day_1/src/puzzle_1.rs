@@ -4,8 +4,15 @@ pub fn get_calibration_value_sum(input: &str) -> u32 {
 }
 
 pub fn get_calibration_value(line: &str) -> u32 {
-    let digits: Vec<u32> = line.chars().filter_map(|c| try_convert_ascii_digit_to_u32(c)).collect();
-    assert!(digits.len() > 0, "Could not find any digits in line {}", line);
+    let digits: Vec<u32> = line
+        .chars()
+        .filter_map(|c| try_convert_ascii_digit_to_u32(c))
+        .collect();
+    assert!(
+        digits.len() > 0,
+        "Could not find any digits in line {}",
+        line
+    );
     let first_digit = digits.first().unwrap();
     let last_digit = digits.last().unwrap();
     first_digit * 10 + last_digit

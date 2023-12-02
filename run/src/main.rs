@@ -1,10 +1,12 @@
 use std::time::Instant;
 
 use day_1::Day1;
+use day_2::Day2;
 use run_trait::*;
 
 fn main() {
     run_day!(Day1, "--- Day 1: Trebuchet?! ---");
+    run_day!(Day2, "--- Day 2: Cube Conundrum ---");
 }
 
 #[macro_export]
@@ -24,11 +26,9 @@ macro_rules! run_day {
 
 #[macro_export]
 macro_rules! measure_time {
-    ($s:expr) => {
-        {
-            let now = Instant::now();
-            let result = $s;
-            (now.elapsed().as_millis(), result)
-        }
-    };
+    ($s:expr) => {{
+        let now = Instant::now();
+        let result = $s;
+        (now.elapsed().as_millis(), result)
+    }};
 }

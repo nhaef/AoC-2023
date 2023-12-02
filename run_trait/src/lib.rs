@@ -1,6 +1,6 @@
 pub trait AdventOfCodeDay<S>
 where
-    S: std::fmt::Display
+    S: std::fmt::Display,
 {
     fn input_1() -> &'static str;
     fn input_2() -> &'static str;

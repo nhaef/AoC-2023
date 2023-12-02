@@ -17,21 +17,9 @@ fn find_first_digit(line: &str) -> u32 {
         if let Some(digit) = puzzle_1::try_convert_ascii_digit_to_u32(line.as_bytes()[i] as char) {
             return digit;
         }
-        test_words_from_end!(line, i, 3, [
-            ["one", 1],
-            ["two", 2],
-            ["six", 6]
-        ]);
-        test_words_from_end!(line, i, 4, [
-            ["four", 4],
-            ["five", 5],
-            ["nine", 9]
-        ]);
-        test_words_from_end!(line, i, 5, [
-            ["three", 3],
-            ["seven", 7],
-            ["eight", 8]
-        ]);
+        test_words_from_end!(line, i, 3, [["one", 1], ["two", 2], ["six", 6]]);
+        test_words_from_end!(line, i, 4, [["four", 4], ["five", 5], ["nine", 9]]);
+        test_words_from_end!(line, i, 5, [["three", 3], ["seven", 7], ["eight", 8]]);
     }
     panic!("Could not find first digit in line {}", line);
 }
@@ -41,21 +29,9 @@ fn find_last_digit(line: &str) -> u32 {
         if let Some(digit) = puzzle_1::try_convert_ascii_digit_to_u32(line.as_bytes()[i] as char) {
             return digit;
         }
-        test_words_from_start!(line, i, 3, [
-            ["one", 1],
-            ["two", 2],
-            ["six", 6]
-        ]);
-        test_words_from_start!(line, i, 4, [
-            ["four", 4],
-            ["five", 5],
-            ["nine", 9]
-        ]);
-        test_words_from_start!(line, i, 5, [
-            ["three", 3],
-            ["seven", 7],
-            ["eight", 8]
-        ]);
+        test_words_from_start!(line, i, 3, [["one", 1], ["two", 2], ["six", 6]]);
+        test_words_from_start!(line, i, 4, [["four", 4], ["five", 5], ["nine", 9]]);
+        test_words_from_start!(line, i, 5, [["three", 3], ["seven", 7], ["eight", 8]]);
     }
     panic!("Could not find last digit in line {}", line);
 }
