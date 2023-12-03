@@ -1,4 +1,4 @@
-use crate::{game::Game, cube_set::CubeSet};
+use crate::{cube_set::CubeSet, game::Game};
 
 pub fn solve_game_list_1(input: &str) -> u32 {
     let mut id_sum = 0;

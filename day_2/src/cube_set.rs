@@ -19,12 +19,15 @@ impl CubeSet {
         let mut blue_cubes = 0;
         for count_color in cube_set.split(',') {
             let (count, color) = match count_color.rsplit_once(' ') {
-                None => panic!("Could not find delimiter ' ' in count_color {}", count_color),
+                None => panic!(
+                    "Could not find delimiter ' ' in count_color {}",
+                    count_color
+                ),
                 Some((count, color)) => (
-                    count
-                        .trim_start()
-                        .parse::<u32>()
-                        .expect(&format!("Could not parse count {} in {}", count, count_color)),
+                    count.trim_start().parse::<u32>().expect(&format!(
+                        "Could not parse count {} in {}",
+                        count, count_color
+                    )),
                     color,
                 ),
             };
@@ -32,7 +35,7 @@ impl CubeSet {
                 "red" => red_cubes = count,
                 "green" => green_cubes = count,
                 "blue" => blue_cubes = count,
-                _ => panic!("Unknown color '{}'", color),    
+                _ => panic!("Unknown color '{}'", color),
             }
         }
         Self {
@@ -43,9 +46,9 @@ impl CubeSet {
     }
 
     pub fn does_contains_enough_cubes(&self, other: &CubeSet) -> bool {
-        other.red_cubes <= self.red_cubes &&
-        other.green_cubes <= self.green_cubes &&
-        other.blue_cubes <= self.blue_cubes
+        other.red_cubes <= self.red_cubes
+            && other.green_cubes <= self.green_cubes
+            && other.blue_cubes <= self.blue_cubes
     }
 
     pub fn power(&self) -> u32 {
@@ -54,13 +57,19 @@ impl CubeSet {
 
     pub fn get_smallest_cube_set<C>(cubes: C) -> CubeSet
     where
-        C: IntoIterator<Item = CubeSet>
+        C: IntoIterator<Item = CubeSet>,
     {
-        cubes.into_iter().fold(CubeSet::new(0, 0, 0), |mut smallest_cube_set, current_cube_set| {
-            smallest_cube_set.red_cubes = u32::max(smallest_cube_set.red_cubes, current_cube_set.red_cubes);
-            smallest_cube_set.green_cubes = u32::max(smallest_cube_set.green_cubes, current_cube_set.green_cubes);
-            smallest_cube_set.blue_cubes = u32::max(smallest_cube_set.blue_cubes, current_cube_set.blue_cubes);
-            smallest_cube_set
-        })
+        cubes.into_iter().fold(
+            CubeSet::new(0, 0, 0),
+            |mut smallest_cube_set, current_cube_set| {
+                smallest_cube_set.red_cubes =
+                    u32::max(smallest_cube_set.red_cubes, current_cube_set.red_cubes);
+                smallest_cube_set.green_cubes =
+                    u32::max(smallest_cube_set.green_cubes, current_cube_set.green_cubes);
+                smallest_cube_set.blue_cubes =
+                    u32::max(smallest_cube_set.blue_cubes, current_cube_set.blue_cubes);
+                smallest_cube_set
+            },
+        )
     }
 }

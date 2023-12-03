@@ -6,4 +6,5 @@ edition = "2021"
 [dependencies]
 day_1 = { version = "0.1.0", path = "../day_1" }
 day_2 = { version = "0.1.0", path = "../day_2" }
+day_3 = { version = "0.1.0", path = "../day_3" }
 run_trait = { version = "0.1.0", path = "../run_trait" }

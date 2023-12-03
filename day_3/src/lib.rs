@@ -1,15 +1,16 @@
-use game_list::{solve_game_list_1, solve_game_list_2};
 use run_trait::AdventOfCodeDay;
 use solution::Solution;
 
-mod cube_set;
-mod game;
-mod game_list;
+use crate::engine_schematic::EngineSchematic;
+
+mod engine_schematic;
+mod engine_schematic_symbol;
+mod maybe_part;
 mod solution;
 
-pub struct Day2;
+pub struct Day3;
 
-impl AdventOfCodeDay<Solution> for Day2 {
+impl AdventOfCodeDay<Solution> for Day3 {
     fn input_1() -> &'static str {
         include_str!("../inputs/input_puzzle_1")
     }
@@ -27,10 +28,12 @@ impl AdventOfCodeDay<Solution> for Day2 {
     }
 
     fn solve_1(input: &str) -> Solution {
-        Solution(solution::SolutionType::Part1, solve_game_list_1(input))
+        let sum = EngineSchematic::from_raw_schematic(input).get_real_parts().iter().sum();
+        Solution(solution::SolutionType::Part1, sum)
     }
 
     fn solve_2(input: &str) -> Solution {
-        Solution(solution::SolutionType::Part2, solve_game_list_2(input))
+        let sum = EngineSchematic::from_raw_schematic(input).get_gear_ratios().iter().sum();
+        Solution(solution::SolutionType::Part2, sum)
     }
 }

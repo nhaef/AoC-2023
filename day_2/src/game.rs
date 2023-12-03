@@ -23,7 +23,7 @@ impl Game {
                 .parse::<u32>()
                 .expect(&format!("Could not parse id {}", id)),
         };
- 
+
         // Extract revealed_cube_sets from string like '1 red, 2 green; 4 red, 3 blue'
         let revealed_cube_sets = game_data.split(';').map(|s| CubeSet::from_str(s)).collect();
 
@@ -37,7 +37,7 @@ impl Game {
         for revealed_cube_set in &self.revealed_cube_sets {
             if !bag.does_contains_enough_cubes(&revealed_cube_set) {
                 return false;
-            } 
+            }
         }
         true
     }

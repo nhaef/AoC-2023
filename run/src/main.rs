@@ -2,11 +2,13 @@ use std::time::Instant;
 
 use day_1::Day1;
 use day_2::Day2;
+use day_3::Day3;
 use run_trait::*;
 
 fn main() {
     run_day!(Day1, "--- Day 1: Trebuchet?! ---");
     run_day!(Day2, "--- Day 2: Cube Conundrum ---");
+    run_day!(Day3, "--- Day 3: Gear Ratios ---");
 }
 
 #[macro_export]
