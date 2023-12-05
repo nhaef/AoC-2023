@@ -1,16 +1,14 @@
+use card_list::{get_total_scratchcards_with_copies, get_total_winning_number_points};
 use run_trait::AdventOfCodeDay;
 use solution::Solution;
 
-use crate::engine_schematic::EngineSchematic;
-
-mod engine_schematic;
-mod engine_schematic_symbol;
-mod maybe_part;
+mod card;
+mod card_list;
 mod solution;
 
-pub struct Day3;
+pub struct Day4;
 
-impl AdventOfCodeDay<Solution> for Day3 {
+impl AdventOfCodeDay<Solution> for Day4 {
     fn input_1() -> &'static str {
         include_str!("../inputs/input_puzzle_1")
     }
@@ -28,18 +26,16 @@ impl AdventOfCodeDay<Solution> for Day3 {
     }
 
     fn solve_1(input: &str) -> Solution {
-        let sum = EngineSchematic::from_raw_schematic(input)
-            .get_real_parts()
-            .iter()
-            .sum();
-        Solution(solution::SolutionType::Part1, sum)
+        Solution(
+            solution::SolutionType::Part1,
+            get_total_winning_number_points(input),
+        )
     }
 
     fn solve_2(input: &str) -> Solution {
-        let sum = EngineSchematic::from_raw_schematic(input)
-            .get_gear_ratios()
-            .iter()
-            .sum();
-        Solution(solution::SolutionType::Part2, sum)
+        Solution(
+            solution::SolutionType::Part2,
+            get_total_scratchcards_with_copies(input),
+        )
     }
 }
