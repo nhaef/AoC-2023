@@ -1,26 +1,26 @@
 use std::time::Instant;
 
-use day_1::Day1;
-use day_2::Day2;
-use day_3::Day3;
-use day_4::Day4;
-use day_5::Day5;
-use day_6::Day6;
+use day_01::Day1;
+use day_02::Day2;
+use day_03::Day3;
+use day_04::Day4;
+use day_05::Day5;
+use day_06::Day6;
 use run_trait::*;
 
 fn main() {
-    run_day!(Day1, "--- Day 1: Trebuchet?! ---");
-    run_day!(Day2, "--- Day 2: Cube Conundrum ---");
-    run_day!(Day3, "--- Day 3: Gear Ratios ---");
-    run_day!(Day4, "--- Day 4: Scratchcards ---");
-    // run_day!(Day5, "--- Day 5: If You Give A Seed A Fertilizer ---");
-    run_day!(Day6, "--- Day 6: Wait For It ---");
+    run_day!(Day1);
+    run_day!(Day2);
+    run_day!(Day3);
+    run_day!(Day4);
+    run_day!(Day5);
+    run_day!(Day6);
 }
 
 #[macro_export]
 macro_rules! run_day {
-    ($day:ident, $name:literal) => {
-        println!($name);
+    ($day:ident) => {
+        println!("{}", $day::name());
         let (time, result) = measure_time!($day::solve_1($day::input_1_example()));
         println!("part 1 (example) ({:08} ms) >> {}", time, result);
         let (time, result) = measure_time!($day::solve_1($day::input_1()));

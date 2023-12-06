@@ -4,10 +4,10 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-day_1 = { version = "0.1.0", path = "../day_1" }
-day_2 = { version = "0.1.0", path = "../day_2" }
-day_3 = { version = "0.1.0", path = "../day_3" }
-day_4 = { version = "0.1.0", path = "../day_4" }
-day_5 = { version = "0.1.0", path = "../day_5" }
-day_6 = { version = "0.1.0", path = "../day_6" }
+day_01 = { version = "0.1.0", path = "../day_01" }
+day_02 = { version = "0.1.0", path = "../day_02" }
+day_03 = { version = "0.1.0", path = "../day_03" }
+day_04 = { version = "0.1.0", path = "../day_04" }
+day_05 = { version = "0.1.0", path = "../day_05" }
+day_06 = { version = "0.1.0", path = "../day_06" }
 run_trait = { version = "0.1.0", path = "../run_trait" }

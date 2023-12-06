@@ -2,6 +2,7 @@ pub trait AdventOfCodeDay<S>
 where
     S: std::fmt::Display,
 {
+    fn name() -> &'static str;
     fn input_1() -> &'static str;
     fn input_2() -> &'static str;
     fn input_1_example() -> &'static str;
