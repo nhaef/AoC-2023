@@ -4,6 +4,8 @@ use day_1::Day1;
 use day_2::Day2;
 use day_3::Day3;
 use day_4::Day4;
+use day_5::Day5;
+use day_6::Day6;
 use run_trait::*;
 
 fn main() {
@@ -11,6 +13,8 @@ fn main() {
     run_day!(Day2, "--- Day 2: Cube Conundrum ---");
     run_day!(Day3, "--- Day 3: Gear Ratios ---");
     run_day!(Day4, "--- Day 4: Scratchcards ---");
+    // run_day!(Day5, "--- Day 5: If You Give A Seed A Fertilizer ---");
+    run_day!(Day6, "--- Day 6: Wait For It ---");
 }
 
 #[macro_export]

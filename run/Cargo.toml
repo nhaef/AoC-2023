@@ -8,4 +8,6 @@ day_1 = { version = "0.1.0", path = "../day_1" }
 day_2 = { version = "0.1.0", path = "../day_2" }
 day_3 = { version = "0.1.0", path = "../day_3" }
 day_4 = { version = "0.1.0", path = "../day_4" }
+day_5 = { version = "0.1.0", path = "../day_5" }
+day_6 = { version = "0.1.0", path = "../day_6" }
 run_trait = { version = "0.1.0", path = "../run_trait" }
