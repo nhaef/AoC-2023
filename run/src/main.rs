@@ -7,6 +7,7 @@ use day_04::Day4;
 use day_05::Day5;
 use day_06::Day6;
 use day_07::Day7;
+use day_08::Day8;
 use run_trait::*;
 
 fn main() {
@@ -17,6 +18,7 @@ fn main() {
     run_day!(Day5);
     run_day!(Day6);
     run_day!(Day7);
+    run_day!(Day8);
 }
 
 #[macro_export]

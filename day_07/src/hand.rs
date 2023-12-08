@@ -28,7 +28,7 @@ impl Hand<'_> {
                         '4' => 4,
                         '3' => 3,
                         '2' => 2,
-                        _ => panic!("unexpected card_char {}", card_char)
+                        _ => panic!("unexpected card_char {}", card_char),
                     }
                 }
                 for (self_char, other_char) in self_chars.zip(other_chars) {
@@ -38,7 +38,7 @@ impl Hand<'_> {
                     }
                 }
                 std::cmp::Ordering::Equal
-            },
+            }
             ord => ord,
         }
     }
@@ -62,7 +62,7 @@ impl Hand<'_> {
                         '3' => 3,
                         '2' => 2,
                         'J' => 1,
-                        _ => panic!("unexpected card_char {}", card_char)
+                        _ => panic!("unexpected card_char {}", card_char),
                     }
                 }
                 for (self_char, other_char) in self_chars.zip(other_chars) {
@@ -72,7 +72,7 @@ impl Hand<'_> {
                     }
                 }
                 std::cmp::Ordering::Equal
-            },
+            }
             ord => ord,
         }
     }
@@ -80,7 +80,11 @@ impl Hand<'_> {
 
 impl std::fmt::Display for Hand<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "cards: {}  ty: {:<15}  bid: {}", self.cards, self.ty, self.bid)
+        write!(
+            f,
+            "cards: {}  ty: {:<15}  bid: {}",
+            self.cards, self.ty, self.bid
+        )
     }
 }
 
@@ -97,14 +101,18 @@ pub enum HandType {
 
 impl HandType {
     pub fn from_card_str_1(cards: &str) -> Self {
-        let char_counts = cards.chars().fold(std::collections::HashMap::new(), |mut acc, c| {
-            if let Some(count) = acc.get_mut(&c) {
-                *count += 1;
-            } else {
-                acc.insert(c, 1_u8);
-            }
-            acc
-        }).into_values().collect::<Vec<u8>>();
+        let char_counts = cards
+            .chars()
+            .fold(std::collections::HashMap::new(), |mut acc, c| {
+                if let Some(count) = acc.get_mut(&c) {
+                    *count += 1;
+                } else {
+                    acc.insert(c, 1_u8);
+                }
+                acc
+            })
+            .into_values()
+            .collect::<Vec<u8>>();
 
         let char_counts_len = char_counts.len();
         match char_counts_len {
@@ -112,16 +120,14 @@ impl HandType {
             2 => {
                 if char_counts.contains(&3) {
                     Self::FullHouse
-                }
-                else {
+                } else {
                     Self::FourOfAKind
                 }
             }
             3 => {
                 if char_counts.contains(&3) {
                     Self::ThreeOfAKind
-                }
-                else {
+                } else {
                     Self::TwoPair
                 }
             }
@@ -131,14 +137,16 @@ impl HandType {
         }
     }
     pub fn from_card_str_2(cards: &str) -> Self {
-        let char_counts = cards.chars().fold(std::collections::HashMap::new(), |mut acc, c| {
-            if let Some(count) = acc.get_mut(&c) {
-                *count += 1;
-            } else {
-                acc.insert(c, 1_u8);
-            }
-            acc
-        });
+        let char_counts = cards
+            .chars()
+            .fold(std::collections::HashMap::new(), |mut acc, c| {
+                if let Some(count) = acc.get_mut(&c) {
+                    *count += 1;
+                } else {
+                    acc.insert(c, 1_u8);
+                }
+                acc
+            });
         let jokers = match char_counts.get(&'J') {
             Some(v) => *v,
             None => 0,
@@ -151,11 +159,9 @@ impl HandType {
             2 => {
                 if jokers != 0 {
                     Self::FiveOfAKind
-                }
-                else if char_counts.contains(&3) {
+                } else if char_counts.contains(&3) {
                     Self::FullHouse
-                }
-                else {
+                } else {
                     Self::FourOfAKind
                 }
             }
@@ -163,38 +169,33 @@ impl HandType {
                 if jokers == 0 {
                     if char_counts.contains(&3) {
                         Self::ThreeOfAKind
-                    }
-                    else {
+                    } else {
                         Self::TwoPair
                     }
-                }
-                else if jokers == 1 {
+                } else if jokers == 1 {
                     if char_counts.contains(&3) {
                         Self::FourOfAKind
-                    }
-                    else {
+                    } else {
                         Self::FullHouse
                     }
-                }
-                else {
+                } else {
                     Self::FourOfAKind
                 }
             }
             4 => {
                 if jokers == 0 {
                     Self::OnePair
-                }
-                else {
+                } else {
                     Self::ThreeOfAKind
                 }
-            },
+            }
             5 => {
                 if jokers == 0 {
                     Self::HighCard
                 } else {
                     Self::OnePair
                 }
-            },
+            }
             _ => panic!("unexpected char_counts_len {}", char_counts_len),
         }
     }
