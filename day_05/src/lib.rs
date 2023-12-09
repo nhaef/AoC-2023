@@ -1,15 +1,13 @@
-use run_trait::AdventOfCodeDay;
+use run_trait::AdventOfCodeSolution;
 use seed_location_map::{
     get_lowest_seed_locations, get_lowest_seed_locations_reverse, read_seed_ranges, read_seeds,
 };
-use solution::Solution;
 
 mod seed_location_map;
-mod solution;
 
-pub struct Day5;
+pub struct Solution(pub i64);
 
-impl AdventOfCodeDay<Solution> for Day5 {
+impl AdventOfCodeSolution for Solution {
     fn name() -> &'static str {
         "--- Day 5: If You Give A Seed A Fertilizer ---"
     }
@@ -30,17 +28,23 @@ impl AdventOfCodeDay<Solution> for Day5 {
         include_str!("../inputs/input_example")
     }
 
-    fn solve_1(input: &str) -> Solution {
+    fn solve_1(input: &str) -> Self {
         let mut lines = input.lines();
         let seeds = lines.next().expect("Could not read first line of input");
         let seeds = read_seeds(seeds);
-        Solution(get_lowest_seed_locations(seeds, lines))
+        Self(get_lowest_seed_locations(seeds, lines))
     }
 
-    fn solve_2(input: &str) -> Solution {
+    fn solve_2(input: &str) -> Self {
         let mut lines = input.lines();
         let seed_ranges = lines.next().expect("Could not read first line of input");
         let seed_ranges = read_seed_ranges(seed_ranges);
-        Solution(get_lowest_seed_locations_reverse(seed_ranges, lines))
+        Self(get_lowest_seed_locations_reverse(seed_ranges, lines))
+    }
+}
+
+impl std::fmt::Display for Solution {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "The lowest location number is {}", self.0)
     }
 }

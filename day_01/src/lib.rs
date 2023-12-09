@@ -1,13 +1,11 @@
-use run_trait::AdventOfCodeDay;
-use solution::Solution;
+use run_trait::AdventOfCodeSolution;
 
 mod puzzle_1;
 mod puzzle_2;
-mod solution;
 
-pub struct Day1;
+pub struct Solution(pub u32);
 
-impl AdventOfCodeDay<Solution> for Day1 {
+impl AdventOfCodeSolution for Solution {
     fn name() -> &'static str {
         "--- Day 1: Trebuchet?! ---"
     }
@@ -28,11 +26,17 @@ impl AdventOfCodeDay<Solution> for Day1 {
         include_str!("../inputs/input_example_2")
     }
 
-    fn solve_1(input: &str) -> Solution {
-        Solution(puzzle_1::get_calibration_value_sum(input))
+    fn solve_1(input: &str) -> Self {
+        Self(puzzle_1::get_calibration_value_sum(input))
     }
 
-    fn solve_2(input: &str) -> Solution {
-        Solution(puzzle_2::get_calibration_value_sum(input))
+    fn solve_2(input: &str) -> Self {
+        Self(puzzle_2::get_calibration_value_sum(input))
+    }
+}
+
+impl std::fmt::Display for Solution {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "calibration value: {}", self.0)
     }
 }

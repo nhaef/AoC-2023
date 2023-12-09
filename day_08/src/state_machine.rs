@@ -115,7 +115,7 @@ pub fn find_a_to_z_steps<'i>(input: &str) -> usize {
         .expect(&format!("Failed to skip second line of input {}", input));
 
     type State = [u8; 3];
-    let mut transition_rules = HashMap::<[u8; 3], ([u8; 3], [u8; 3])>::new();
+    let mut transition_rules = HashMap::<State, (State, State)>::new();
     for line in lines {
         let label = line[..3].as_bytes();
         let label_left = line[7..10].as_bytes();
@@ -135,7 +135,7 @@ pub fn find_a_to_z_steps<'i>(input: &str) -> usize {
     //
     // Because these assumptions seem to be true, a simplified equation can be used:
     // steps = x1 * (loop_end_1 - loop_start_1)
-
+    
     let initial_state_byte = 'A' as u8;
     let final_state_interval = transition_rules
         .keys()
@@ -154,24 +154,32 @@ pub fn find_a_to_z_steps<'i>(input: &str) -> usize {
                     None => {
                         visited_internal_states.insert(current_interal_state, state_machine.step);
                     },
-                    Some(v) => return state_machine.step - *v,
+                    Some(v) => {
+                        return state_machine.step - *v
+                    },
                 }
                 state_machine.step();
             }
         })
         .collect::<Vec<_>>();
-    
+
     least_common_multiple(final_state_interval)
 }
 
 fn least_common_multiple(values: Vec<usize>) -> usize {
-    values.into_iter().reduce(|acc, x| acc * (x / greatest_common_divisor(acc, x))).unwrap()
+    values.clone().into_iter().reduce(|acc, x| acc * (x / greatest_common_divisor(acc, x))).unwrap()
 }
 
-fn greatest_common_divisor(a: usize, b: usize) -> usize {
-    match a.cmp(&b) {
-        std::cmp::Ordering::Equal => a,
-        std::cmp::Ordering::Greater => greatest_common_divisor(a - b, b),
-        std::cmp::Ordering::Less => greatest_common_divisor(a, b - a),
+fn greatest_common_divisor(mut a: usize, mut b: usize) -> usize {
+    loop {
+        if a > b {
+            a -= b
+        }
+        else if b > a {
+            b -= a
+        }   
+        else {
+            return a;
+        }
     }
 }

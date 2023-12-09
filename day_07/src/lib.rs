@@ -1,16 +1,14 @@
-use run_trait::AdventOfCodeDay;
-use solution::Solution;
+use run_trait::AdventOfCodeSolution;
 use sort::{get_total_winnings_1, get_total_winnings_2, input_to_hands_2};
 
 use crate::sort::input_to_hands_1;
 
 mod hand;
-mod solution;
 mod sort;
 
-pub struct Day7;
+pub struct Solution(pub u32);
 
-impl AdventOfCodeDay<Solution> for Day7 {
+impl AdventOfCodeSolution for Solution {
     fn name() -> &'static str {
         "--- Day 7: Camel Cards ---"
     }
@@ -31,19 +29,17 @@ impl AdventOfCodeDay<Solution> for Day7 {
         include_str!("../inputs/input_example")
     }
 
-    fn solve_1(input: &str) -> Solution {
-        Solution(get_total_winnings_1(input_to_hands_1(input)))
+    fn solve_1(input: &str) -> Self {
+        Self(get_total_winnings_1(input_to_hands_1(input)))
     }
 
-    fn solve_2(input: &str) -> Solution {
-        Solution(get_total_winnings_2(input_to_hands_2(input)))
+    fn solve_2(input: &str) -> Self {
+        Self(get_total_winnings_2(input_to_hands_2(input)))
     }
 }
 
-#[allow(dead_code)]
-pub fn print_hands(hands: &Vec<hand::Hand>) {
-    println!("--- Hands --- ");
-    for hand in hands {
-        println!("{}", hand)
+impl std::fmt::Display for Solution {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "The sum of all winnings is {}", self.0)
     }
 }

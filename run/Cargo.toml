@@ -4,6 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+clap = { version = "4.4.11", features = ["derive"] }
+colored = "2.0.4"
 day_01 = { version = "0.1.0", path = "../day_01" }
 day_02 = { version = "0.1.0", path = "../day_02" }
 day_03 = { version = "0.1.0", path = "../day_03" }
