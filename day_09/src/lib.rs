@@ -1,5 +1,5 @@
 use oasis::{sum_and_extrapolate_next_values_for_input, sum_and_extrapolate_prev_values_for_input};
-use run_trait::AdventOfCodeSolution;
+use aoc_trait::AdventOfCodeSolution;
 
 mod oasis;
 

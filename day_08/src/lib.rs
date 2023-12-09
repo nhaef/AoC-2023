@@ -1,4 +1,4 @@
-use run_trait::AdventOfCodeSolution;
+use aoc_trait::AdventOfCodeSolution;
 use state_machine::{find_a_to_z_steps, find_aaa_to_zzz_steps};
 
 mod node;

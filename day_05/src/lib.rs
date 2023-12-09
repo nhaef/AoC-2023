@@ -1,4 +1,4 @@
-use run_trait::AdventOfCodeSolution;
+use aoc_trait::AdventOfCodeSolution;
 use seed_location_map::{
     get_lowest_seed_locations, get_lowest_seed_locations_reverse, read_seed_ranges, read_seeds,
 };

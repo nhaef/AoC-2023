@@ -1,5 +1,5 @@
 use boat_race::{get_boat_race, get_boat_races, get_number_of_ways_to_win_race};
-use run_trait::AdventOfCodeSolution;
+use aoc_trait::AdventOfCodeSolution;
 
 mod boat_race;
 

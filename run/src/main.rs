@@ -82,7 +82,7 @@ impl std::fmt::Display for Duration {
 #[macro_export]
 macro_rules! run_solution {
     ($solution:path) => {{
-        use run_trait::AdventOfCodeSolution;
+        use aoc_trait::AdventOfCodeSolution;
         type Solution = $solution;
         println!("{}", Solution::name().white().bold());
         let (time, result) = measure_time!(Solution::solve_1(Solution::input_1_example()));

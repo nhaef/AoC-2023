@@ -7,4 +7,4 @@ edition = "2021"
 crate-type = ["lib"]
 
 [dependencies]
-run_trait = { version = "0.1.0", path = "../run_trait" }
+aoc_trait = { version = "0.1.0", path = "../aoc_trait" }

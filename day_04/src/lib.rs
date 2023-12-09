@@ -1,5 +1,5 @@
 use card_list::{get_total_scratchcards_with_copies, get_total_winning_number_points};
-use run_trait::AdventOfCodeSolution;
+use aoc_trait::AdventOfCodeSolution;
 
 mod card;
 mod card_list;

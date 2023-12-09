@@ -1,4 +1,4 @@
-use run_trait::AdventOfCodeSolution;
+use aoc_trait::AdventOfCodeSolution;
 
 mod puzzle_1;
 mod puzzle_2;

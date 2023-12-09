@@ -1,4 +1,4 @@
-use run_trait::AdventOfCodeSolution;
+use aoc_trait::AdventOfCodeSolution;
 
 use crate::engine_schematic::EngineSchematic;
 

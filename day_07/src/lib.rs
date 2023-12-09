@@ -1,4 +1,4 @@
-use run_trait::AdventOfCodeSolution;
+use aoc_trait::AdventOfCodeSolution;
 use sort::{get_total_winnings_1, get_total_winnings_2, input_to_hands_2};
 
 use crate::sort::input_to_hands_1;

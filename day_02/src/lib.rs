@@ -1,5 +1,5 @@
 use game_list::{solve_game_list_1, solve_game_list_2};
-use run_trait::AdventOfCodeSolution;
+use aoc_trait::AdventOfCodeSolution;
 
 mod cube_set;
 mod game;
