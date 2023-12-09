@@ -5,7 +5,7 @@ use seed_location_map::{
 
 mod seed_location_map;
 
-pub struct Solution(pub i64);
+pub struct Solution(i64);
 
 impl AdventOfCodeSolution for Solution {
     fn name() -> &'static str {

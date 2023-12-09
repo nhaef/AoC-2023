@@ -9,7 +9,7 @@ pub enum SolutionType {
     Part2,
 }
 
-pub struct Solution(pub SolutionType, pub u32);
+pub struct Solution(SolutionType, pub u32);
 
 impl AdventOfCodeSolution for Solution {
     fn name() -> &'static str {

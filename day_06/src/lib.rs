@@ -3,7 +3,7 @@ use run_trait::AdventOfCodeSolution;
 
 mod boat_race;
 
-pub struct Solution(pub u64);
+pub struct Solution(u64);
 
 impl AdventOfCodeSolution for Solution {
     fn name() -> &'static str {

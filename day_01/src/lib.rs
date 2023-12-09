@@ -3,7 +3,7 @@ use run_trait::AdventOfCodeSolution;
 mod puzzle_1;
 mod puzzle_2;
 
-pub struct Solution(pub u32);
+pub struct Solution(u32);
 
 impl AdventOfCodeSolution for Solution {
     fn name() -> &'static str {

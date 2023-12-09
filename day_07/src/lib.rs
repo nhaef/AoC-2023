@@ -6,7 +6,7 @@ use crate::sort::input_to_hands_1;
 mod hand;
 mod sort;
 
-pub struct Solution(pub u32);
+pub struct Solution(u32);
 
 impl AdventOfCodeSolution for Solution {
     fn name() -> &'static str {
