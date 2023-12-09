@@ -1,4 +1,3 @@
-#![feature(ascii_char)]
 use run_trait::AdventOfCodeSolution;
 use state_machine::{find_a_to_z_steps, find_aaa_to_zzz_steps};
 
