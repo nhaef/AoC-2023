@@ -22,6 +22,7 @@ fn main() {
         || run_solution!(day_07::Solution),
         || run_solution!(day_08::Solution),
         || run_solution!(day_09::Solution),
+        || run_solution!(day_10::Solution),
     ];
         
     let args = Args::parse();
