@@ -23,8 +23,9 @@ fn main() {
         || run_solution!(day_08::Solution),
         || run_solution!(day_09::Solution),
         || run_solution!(day_10::Solution),
+        || run_solution!(day_11::Solution),
     ];
-        
+
     let args = Args::parse();
     match args.day {
         Some(day) => solutions[day - 1](),
