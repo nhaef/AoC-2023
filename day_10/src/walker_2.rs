@@ -33,7 +33,7 @@ impl MapWalker<'_> {
         let current_tile_ref = match self.direction {
             Direction::NORTH => {
                 self.cw_water_spawns.push(MapPoint(self.position.0 + 1, self.position.1));
-                self.ccw_water_spawns.push(MapPoint(self.position.0 - 1, self.position.1));
+                self.ccw_water_spawns.push(MapPoint(self.position.0.overflowing_sub(1).0, self.position.1));
                 self.position.1 -= 1;
                 let current_tile_ref = read_map_tile_mut(self.map, &self.position).unwrap();
                 match *current_tile_ref {
@@ -44,7 +44,7 @@ impl MapWalker<'_> {
                     },
                     PIPE_NORTH_SOUTH => self.direction = Direction::NORTH,
                     PIPE_SOUTH_EAST => {
-                        self.ccw_water_spawns.push(MapPoint(self.position.0 - 1, self.position.1));
+                        self.ccw_water_spawns.push(MapPoint(self.position.0.overflowing_sub(1).0, self.position.1));
                         self.direction = Direction::EAST;
                         self.cw_turns += 1;
                     },
@@ -99,7 +99,7 @@ impl MapWalker<'_> {
             },
             Direction::EAST => {
                 self.cw_water_spawns.push(MapPoint(self.position.0, self.position.1 + 1));
-                self.ccw_water_spawns.push(MapPoint(self.position.0, self.position.1 - 1));
+                self.ccw_water_spawns.push(MapPoint(self.position.0, self.position.1.overflowing_sub(1).0));
                 self.position.0 += 1;
                 let current_tile_ref = read_map_tile_mut(self.map, &self.position).unwrap();
                 match *current_tile_ref {
@@ -129,7 +129,7 @@ pub fn get_enclosed_tiles(input: &str) -> u32 {
     
     let mut direction = None;
     // check north
-    if let Some(&PIPE_SOUTH_WEST | &PIPE_NORTH_SOUTH | &PIPE_SOUTH_EAST) = read_map_tile(&map, &MapPoint(start_point.0, start_point.1 - 1)) {
+    if let Some(&PIPE_SOUTH_WEST | &PIPE_NORTH_SOUTH | &PIPE_SOUTH_EAST) = read_map_tile(&map, &MapPoint(start_point.0, start_point.1.overflowing_sub(1).0)) {
         direction = Some(Direction::NORTH);
     }
     // check south
