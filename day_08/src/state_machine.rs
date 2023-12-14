@@ -54,10 +54,8 @@ where
     pub fn step(&mut self) -> usize {
         let instruction = &self.instructions[self.instruction_cursor];
         self.instruction_cursor = (self.instruction_cursor + 1) % self.instructions.len();
-        self.state = instruction.get(self
-            .transition_rules
-            .get(&self.state)
-            .unwrap())
+        self.state = instruction
+            .get(self.transition_rules.get(&self.state).unwrap())
             .clone();
         self.step += 1;
         self.step
@@ -135,17 +133,14 @@ pub fn find_a_to_z_steps<'i>(input: &str) -> usize {
     //
     // Because these assumptions seem to be true, a simplified equation can be used:
     // steps = x1 * (loop_end_1 - loop_start_1)
-    
+
     let initial_state_byte = 'A' as u8;
     let final_state_interval = transition_rules
         .keys()
         .filter(|l| l[2] == initial_state_byte)
         .map(|l| {
-            let mut state_machine = InstructionStateMachine::new(
-                l.clone(),
-                &instructions,
-                &transition_rules,
-            );
+            let mut state_machine =
+                InstructionStateMachine::new(l.clone(), &instructions, &transition_rules);
             // detect loop in state machine
             let mut visited_internal_states = HashMap::<(usize, State), usize>::new();
             loop {
@@ -153,10 +148,8 @@ pub fn find_a_to_z_steps<'i>(input: &str) -> usize {
                 match visited_internal_states.get(&current_interal_state) {
                     None => {
                         visited_internal_states.insert(current_interal_state, state_machine.step);
-                    },
-                    Some(v) => {
-                        return state_machine.step - *v
-                    },
+                    }
+                    Some(v) => return state_machine.step - *v,
                 }
                 state_machine.step();
             }
@@ -167,18 +160,20 @@ pub fn find_a_to_z_steps<'i>(input: &str) -> usize {
 }
 
 fn least_common_multiple(values: Vec<usize>) -> usize {
-    values.clone().into_iter().reduce(|acc, x| acc * (x / greatest_common_divisor(acc, x))).unwrap()
+    values
+        .clone()
+        .into_iter()
+        .reduce(|acc, x| acc * (x / greatest_common_divisor(acc, x)))
+        .unwrap()
 }
 
 fn greatest_common_divisor(mut a: usize, mut b: usize) -> usize {
     loop {
         if a > b {
             a -= b
-        }
-        else if b > a {
+        } else if b > a {
             b -= a
-        }   
-        else {
+        } else {
             return a;
         }
     }

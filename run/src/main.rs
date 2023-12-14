@@ -6,7 +6,6 @@ use crate::cli::Args;
 mod cli;
 
 fn main() {
-
     if cfg!(debug_assertions) {
         warn!("currently running in debug mode");
         warn!("consider using '--release' flag for optimal performance");
@@ -24,6 +23,7 @@ fn main() {
         || run_solution!(day_09::Solution),
         || run_solution!(day_10::Solution),
         || run_solution!(day_11::Solution),
+        || run_solution!(day_12::Solution),
         || run_solution!(day_13::Solution),
         || run_solution!(day_14::Solution),
     ];
@@ -42,7 +42,9 @@ impl std::fmt::Display for Duration {
         let mut time_minutes = (self.0.as_secs() / 60).to_string().white();
         let mut time_seconds = (self.0.as_secs() % 60).to_string().white();
         let mut time_millis = self.0.subsec_millis().to_string().white();
-        let mut time_micros = ((self.0.subsec_nanos() / 1_000) % 1_000).to_string().white();
+        let mut time_micros = ((self.0.subsec_nanos() / 1_000) % 1_000)
+            .to_string()
+            .white();
         let mut time_nanos = (self.0.subsec_nanos() % 1_000).to_string().white();
         if self.0 < StdDuration::from_millis(1) {
             time_minutes = time_minutes.dimmed();
@@ -50,36 +52,36 @@ impl std::fmt::Display for Duration {
             time_millis = time_millis.dimmed();
             time_micros = time_micros.green();
             time_nanos = time_nanos.green();
-        }
-        else if self.0 < StdDuration::from_millis(10) {
+        } else if self.0 < StdDuration::from_millis(10) {
             time_minutes = time_minutes.dimmed();
             time_seconds = time_seconds.dimmed();
             time_millis = time_millis.green();
             time_micros = time_micros.green();
             time_nanos = time_nanos.green();
-        }
-        else if self.0 < StdDuration::from_millis(1000) {
+        } else if self.0 < StdDuration::from_millis(1000) {
             time_minutes = time_minutes.dimmed();
             time_seconds = time_seconds.dimmed();
             time_millis = time_millis.yellow();
             time_micros = time_micros.yellow();
             time_nanos = time_nanos.yellow();
-        }
-        else if self.0 < StdDuration::from_secs(60) {
+        } else if self.0 < StdDuration::from_secs(60) {
             time_minutes = time_minutes.dimmed();
             time_seconds = time_seconds.red();
             time_millis = time_millis.red();
             time_micros = time_micros.red();
             time_nanos = time_nanos.red();
-        }
-        else {
+        } else {
             time_minutes = time_minutes.red();
             time_seconds = time_seconds.red();
             time_millis = time_millis.red();
             time_micros = time_micros.red();
             time_nanos = time_nanos.red();
         }
-        format!("{:0>2}:{:0>2}:{:0>4}.{:0>4}.{:0>4}", time_minutes, time_seconds, time_millis, time_micros, time_nanos).fmt(f)
+        format!(
+            "{:0>2}:{:0>2}:{:0>4}.{:0>4}.{:0>4}",
+            time_minutes, time_seconds, time_millis, time_micros, time_nanos
+        )
+        .fmt(f)
     }
 }
 
@@ -100,7 +102,6 @@ macro_rules! run_solution {
     }};
 }
 
-
 #[macro_export]
 macro_rules! measure_time {
     ($e:expr) => {{
@@ -114,5 +115,5 @@ macro_rules! measure_time {
 macro_rules! warn {
     ($s:literal) => {{
         println!("warn: {}", $s.yellow().bold())
-    }}
+    }};
 }

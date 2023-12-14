@@ -13,7 +13,7 @@ impl<'m> MapWalker<'m> {
             map,
             position,
             direction,
-            steps: 0
+            steps: 0,
         }
     }
 }
@@ -31,7 +31,7 @@ impl MapWalker<'_> {
                     &PIPE_START => (),
                     t => panic!("unexpected tile {}", t),
                 }
-            },
+            }
             Direction::SOUTH => {
                 self.position.1 += 1;
                 match read_map_tile(self.map, &self.position).unwrap() {
@@ -41,7 +41,7 @@ impl MapWalker<'_> {
                     &PIPE_START => (),
                     t => panic!("unexpected tile {}", t),
                 }
-            },
+            }
             Direction::WEST => {
                 self.position.0 -= 1;
                 match read_map_tile(self.map, &self.position).unwrap() {
@@ -51,7 +51,7 @@ impl MapWalker<'_> {
                     &PIPE_START => (),
                     t => panic!("unexpected tile {}", t),
                 }
-            },
+            }
             Direction::EAST => {
                 self.position.0 += 1;
                 match read_map_tile(self.map, &self.position).unwrap() {
@@ -61,25 +61,31 @@ impl MapWalker<'_> {
                     &PIPE_START => (),
                     t => panic!("unexpected tile {}", t),
                 }
-            },
+            }
         }
     }
 }
 
 pub fn get_steps_to_farthest_point(input: &str) -> u32 {
     let (start_point, map) = read_start_point_and_map(input);
-    
+
     let mut direction = None;
     // check north
-    if let Some(&PIPE_SOUTH_WEST | &PIPE_NORTH_SOUTH | &PIPE_SOUTH_EAST) = read_map_tile(&map, &MapPoint(start_point.0, start_point.1 - 1)) {
+    if let Some(&PIPE_SOUTH_WEST | &PIPE_NORTH_SOUTH | &PIPE_SOUTH_EAST) =
+        read_map_tile(&map, &MapPoint(start_point.0, start_point.1 - 1))
+    {
         direction = Some(Direction::NORTH);
     }
     // check south
-    else if let Some(&PIPE_NORTH_WEST | &PIPE_NORTH_SOUTH | &PIPE_NORTH_EAST) = read_map_tile(&map, &MapPoint(start_point.0, start_point.1 + 1)) {
+    else if let Some(&PIPE_NORTH_WEST | &PIPE_NORTH_SOUTH | &PIPE_NORTH_EAST) =
+        read_map_tile(&map, &MapPoint(start_point.0, start_point.1 + 1))
+    {
         direction = Some(Direction::SOUTH);
     }
     // check west
-    else if let Some(&PIPE_SOUTH_EAST | &PIPE_WEST_EAST | &PIPE_NORTH_EAST) = read_map_tile(&map, &MapPoint(start_point.0 - 1, start_point.1)) {
+    else if let Some(&PIPE_SOUTH_EAST | &PIPE_WEST_EAST | &PIPE_NORTH_EAST) =
+        read_map_tile(&map, &MapPoint(start_point.0 - 1, start_point.1))
+    {
         direction = Some(Direction::WEST);
     }
 
