@@ -211,7 +211,6 @@ pub fn get_total_load_on_north_support_beam_after_cycles(input: &str, cycles: us
     loop {
         let platform_ident = platform.state_hash();
         if let Some(repeated_cycle) = state_to_cycle.get(&platform_ident) {
-            println!("found loop {} -> {}", repeated_cycle, platform.cycle);
             let loop_length = platform.cycle - repeated_cycle;
             platform.cycle = cycles - ((cycles - repeated_cycle) % loop_length);
             loop {
@@ -222,9 +221,6 @@ pub fn get_total_load_on_north_support_beam_after_cycles(input: &str, cycles: us
             }
         } else {
             state_to_cycle.insert(platform_ident, platform.cycle);
-        }
-        if platform.cycle % 10_000 == 0 {
-            println!("cy {}", platform.cycle);
         }
         platform.do_cycle();
     }
