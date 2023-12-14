@@ -1,5 +1,5 @@
-use oasis::{sum_and_extrapolate_next_values_for_input, sum_and_extrapolate_prev_values_for_input};
 use aoc_trait::AdventOfCodeSolution;
+use oasis::{sum_and_extrapolate_next_values_for_input, sum_and_extrapolate_prev_values_for_input};
 
 mod oasis;
 
@@ -32,11 +32,17 @@ impl AdventOfCodeSolution for Solution {
     }
 
     fn solve_1(input: &str) -> Self {
-        Self(SolutionType::Part1, sum_and_extrapolate_next_values_for_input(input))
+        Self(
+            SolutionType::Part1,
+            sum_and_extrapolate_next_values_for_input(input),
+        )
     }
 
     fn solve_2(input: &str) -> Self {
-        Self(SolutionType::Part2, sum_and_extrapolate_prev_values_for_input(input))
+        Self(
+            SolutionType::Part2,
+            sum_and_extrapolate_prev_values_for_input(input),
+        )
     }
 }
 

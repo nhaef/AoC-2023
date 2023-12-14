@@ -23,7 +23,7 @@ impl SpaceImage {
                         are_cols_empty[x] = false;
                         let galaxy_coordinates = SpaceImageCoordinates(x, y);
                         galaxies.push(galaxy_coordinates);
-                    },
+                    }
                     _ => (),
                 }
             }
@@ -45,9 +45,7 @@ impl SpaceImage {
             galaxy_coordinates.1 += empty_rows[galaxy_coordinates.1];
         }
 
-        Self {
-            galaxies,
-        }
+        Self { galaxies }
     }
 
     pub fn get_sum_of_galaxy_distances(&self) -> usize {
@@ -68,7 +66,6 @@ impl SpaceImage {
         }
         sum
     }
-
 }
 
 fn get_unique_pairs<T>(values: &Vec<T>) -> Vec<(&T, &T)> {

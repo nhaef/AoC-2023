@@ -1,5 +1,5 @@
-use card_list::{get_total_scratchcards_with_copies, get_total_winning_number_points};
 use aoc_trait::AdventOfCodeSolution;
+use card_list::{get_total_scratchcards_with_copies, get_total_winning_number_points};
 
 mod card;
 mod card_list;
@@ -33,10 +33,7 @@ impl AdventOfCodeSolution for Solution {
     }
 
     fn solve_1(input: &str) -> Self {
-        Self(
-            SolutionType::Part1,
-            get_total_winning_number_points(input),
-        )
+        Self(SolutionType::Part1, get_total_winning_number_points(input))
     }
 
     fn solve_2(input: &str) -> Self {

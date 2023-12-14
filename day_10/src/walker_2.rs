@@ -38,65 +38,74 @@ impl MapWalker<'_> {
                 let current_tile_ref = read_map_tile_mut(self.map, &self.position).unwrap();
                 match *current_tile_ref {
                     PIPE_SOUTH_WEST => {
-                        self.cw_water_spawns.push(MapPoint(self.position.0 + 1, self.position.1));
+                        self.cw_water_spawns
+                            .push(MapPoint(self.position.0 + 1, self.position.1));
                         self.direction = Direction::WEST;
                         self.cw_turns -= 1;
-                    },
+                    }
                     PIPE_NORTH_SOUTH => self.direction = Direction::NORTH,
                     PIPE_SOUTH_EAST => {
                         self.ccw_water_spawns.push(MapPoint(self.position.0.overflowing_sub(1).0, self.position.1));
                         self.direction = Direction::EAST;
                         self.cw_turns += 1;
-                    },
+                    }
                     PIPE_START => (),
                     t => panic!("unexpected tile {}", t),
                 }
                 current_tile_ref
-            },
+            }
             Direction::SOUTH => {
-                self.cw_water_spawns.push(MapPoint(self.position.0 - 1, self.position.1));
-                self.ccw_water_spawns.push(MapPoint(self.position.0 + 1, self.position.1));
+                self.cw_water_spawns
+                    .push(MapPoint(self.position.0 - 1, self.position.1));
+                self.ccw_water_spawns
+                    .push(MapPoint(self.position.0 + 1, self.position.1));
                 self.position.1 += 1;
                 let current_tile_ref = read_map_tile_mut(self.map, &self.position).unwrap();
                 match *current_tile_ref {
                     PIPE_NORTH_WEST => {
-                        self.cw_water_spawns.push(MapPoint(self.position.0 - 1, self.position.1));
+                        self.cw_water_spawns
+                            .push(MapPoint(self.position.0 - 1, self.position.1));
                         self.direction = Direction::WEST;
                         self.cw_turns += 1;
-                    },
+                    }
                     PIPE_NORTH_SOUTH => self.direction = Direction::SOUTH,
                     PIPE_NORTH_EAST => {
-                        self.ccw_water_spawns.push(MapPoint(self.position.0 + 1, self.position.1));
+                        self.ccw_water_spawns
+                            .push(MapPoint(self.position.0 + 1, self.position.1));
                         self.direction = Direction::EAST;
                         self.cw_turns -= 1;
-                    },
+                    }
                     PIPE_START => (),
                     t => panic!("unexpected tile {}", t),
                 }
                 current_tile_ref
-            },
+            }
             Direction::WEST => {
-                self.cw_water_spawns.push(MapPoint(self.position.0, self.position.1 - 1));
-                self.ccw_water_spawns.push(MapPoint(self.position.0, self.position.1 + 1));
+                self.cw_water_spawns
+                    .push(MapPoint(self.position.0, self.position.1 - 1));
+                self.ccw_water_spawns
+                    .push(MapPoint(self.position.0, self.position.1 + 1));
                 self.position.0 -= 1;
                 let current_tile_ref = read_map_tile_mut(self.map, &self.position).unwrap();
                 match *current_tile_ref {
                     PIPE_SOUTH_EAST => {
-                        self.cw_water_spawns.push(MapPoint(self.position.0, self.position.1 - 1));
+                        self.cw_water_spawns
+                            .push(MapPoint(self.position.0, self.position.1 - 1));
                         self.direction = Direction::SOUTH;
                         self.cw_turns -= 1;
-                    },
+                    }
                     PIPE_WEST_EAST => self.direction = Direction::WEST,
                     PIPE_NORTH_EAST => {
-                        self.ccw_water_spawns.push(MapPoint(self.position.0, self.position.1 + 1));
+                        self.ccw_water_spawns
+                            .push(MapPoint(self.position.0, self.position.1 + 1));
                         self.direction = Direction::NORTH;
                         self.cw_turns += 1;
-                    },
+                    }
                     PIPE_START => (),
                     t => panic!("unexpected tile {}", t),
                 }
                 current_tile_ref
-            },
+            }
             Direction::EAST => {
                 self.cw_water_spawns.push(MapPoint(self.position.0, self.position.1 + 1));
                 self.ccw_water_spawns.push(MapPoint(self.position.0, self.position.1.overflowing_sub(1).0));
@@ -104,21 +113,23 @@ impl MapWalker<'_> {
                 let current_tile_ref = read_map_tile_mut(self.map, &self.position).unwrap();
                 match *current_tile_ref {
                     PIPE_SOUTH_WEST => {
-                        self.cw_water_spawns.push(MapPoint(self.position.0, self.position.1 + 1));
+                        self.cw_water_spawns
+                            .push(MapPoint(self.position.0, self.position.1 + 1));
                         self.direction = Direction::SOUTH;
                         self.cw_turns += 1;
-                    },
+                    }
                     PIPE_WEST_EAST => self.direction = Direction::EAST,
                     PIPE_NORTH_WEST => {
-                        self.ccw_water_spawns.push(MapPoint(self.position.0, self.position.1 - 1));
+                        self.ccw_water_spawns
+                            .push(MapPoint(self.position.0, self.position.1 - 1));
                         self.direction = Direction::NORTH;
                         self.cw_turns -= 1;
-                    },
+                    }
                     PIPE_START => (),
                     t => panic!("unexpected tile {}", t),
                 }
                 current_tile_ref
-            },
+            }
         };
         *current_tile_ref = WALL;
     }
@@ -126,18 +137,22 @@ impl MapWalker<'_> {
 
 pub fn get_enclosed_tiles(input: &str) -> u32 {
     let (start_point, mut map) = read_start_point_and_map(input);
-    
+
     let mut direction = None;
     // check north
     if let Some(&PIPE_SOUTH_WEST | &PIPE_NORTH_SOUTH | &PIPE_SOUTH_EAST) = read_map_tile(&map, &MapPoint(start_point.0, start_point.1.overflowing_sub(1).0)) {
         direction = Some(Direction::NORTH);
     }
     // check south
-    else if let Some(&PIPE_NORTH_WEST | &PIPE_NORTH_SOUTH | &PIPE_NORTH_EAST) = read_map_tile(&map, &MapPoint(start_point.0, start_point.1 + 1)) {
+    else if let Some(&PIPE_NORTH_WEST | &PIPE_NORTH_SOUTH | &PIPE_NORTH_EAST) =
+        read_map_tile(&map, &MapPoint(start_point.0, start_point.1 + 1))
+    {
         direction = Some(Direction::SOUTH);
     }
     // check west
-    else if let Some(&PIPE_SOUTH_EAST | &PIPE_WEST_EAST | &PIPE_NORTH_EAST) = read_map_tile(&map, &MapPoint(start_point.0 - 1, start_point.1)) {
+    else if let Some(&PIPE_SOUTH_EAST | &PIPE_WEST_EAST | &PIPE_NORTH_EAST) =
+        read_map_tile(&map, &MapPoint(start_point.0 - 1, start_point.1))
+    {
         direction = Some(Direction::WEST);
     }
 
@@ -148,7 +163,11 @@ pub fn get_enclosed_tiles(input: &str) -> u32 {
         walker.walk();
 
         if walker.position == start_point {
-            let water_spawns = if walker.cw_turns > 0 { walker.cw_water_spawns } else { walker.ccw_water_spawns };
+            let water_spawns = if walker.cw_turns > 0 {
+                walker.cw_water_spawns
+            } else {
+                walker.ccw_water_spawns
+            };
             let mut flooded_tiles: u32 = 0;
             // print_map(&map);
             for water_spawn in water_spawns {

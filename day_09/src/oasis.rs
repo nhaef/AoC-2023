@@ -9,14 +9,21 @@ impl HistorySequence {
     }
     pub fn derive(self) -> Self {
         let value_iterator = self.values.into_iter();
-        value_iterator.clone().zip(value_iterator.skip(1)).map(|(next, prev)| next - prev).collect()
+        value_iterator
+            .clone()
+            .zip(value_iterator.skip(1))
+            .map(|(next, prev)| next - prev)
+            .collect()
     }
 }
 
 impl FromIterator<i64> for HistorySequence {
     fn from_iter<T: IntoIterator<Item = i64>>(iter: T) -> Self {
-        let mut is_all_zero = true; 
-        let values = iter.into_iter().inspect(|val| is_all_zero = is_all_zero && (*val == 0)).collect();
+        let mut is_all_zero = true;
+        let values = iter
+            .into_iter()
+            .inspect(|val| is_all_zero = is_all_zero && (*val == 0))
+            .collect();
         Self {
             is_all_zero,
             values,
@@ -27,7 +34,10 @@ impl FromIterator<i64> for HistorySequence {
 pub fn sum_and_extrapolate_next_values_for_input(input: &str) -> i64 {
     let mut sum = 0;
     for history in input.lines() {
-        let mut history_sequence = history.rsplit(' ').map(|value: &str| value.parse::<i64>().unwrap()).collect::<HistorySequence>();
+        let mut history_sequence = history
+            .rsplit(' ')
+            .map(|value: &str| value.parse::<i64>().unwrap())
+            .collect::<HistorySequence>();
         let mut history_sequence_first_values = vec![];
         loop {
             history_sequence_first_values.push(history_sequence.get_first_value());
@@ -44,7 +54,10 @@ pub fn sum_and_extrapolate_next_values_for_input(input: &str) -> i64 {
 pub fn sum_and_extrapolate_prev_values_for_input(input: &str) -> i64 {
     let mut sum = 0;
     for history in input.lines() {
-        let mut history_sequence = history.split(' ').map(|value: &str| value.parse::<i64>().unwrap()).collect::<HistorySequence>();
+        let mut history_sequence = history
+            .split(' ')
+            .map(|value: &str| value.parse::<i64>().unwrap())
+            .collect::<HistorySequence>();
         let mut history_sequence_first_values = vec![];
         loop {
             history_sequence_first_values.push(history_sequence.get_first_value());
