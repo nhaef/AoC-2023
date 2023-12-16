@@ -70,25 +70,29 @@ pub fn read_puzzle_input(day: usize) -> Option<String> {
 pub fn read_puzzle_example_inputs(day: usize, part: usize) -> Vec<(String, String)> {
     let expected_file_name_start = format!("puzzle_{:02}_part_{}_", day, part);
     let mut example_inputs = vec![];
-    fs::read_dir(AOC_INPUTS_CACHE_PATH).and_then(|dir| {
-        for entry in dir {
-            let entry = entry.expect("failed to read directory entry");
-            let metadata = entry
-                .metadata()
-                .expect("failed to read directory entry metadata");
-            if metadata.is_file() {
-                let file_name = entry.file_name();
-                let file_name = file_name.to_str().expect("failed to read file name");
-                if file_name.starts_with(&expected_file_name_start) && file_name.ends_with(".txt") {
-                    let note = &file_name[17..(file_name.len() - 4)];
-                    match fs::read_to_string(entry.path()) {
-                        Err(_) => panic!("failed to read file"),
-                        Ok(content) => example_inputs.push((note.to_owned(), content)),
+    fs::read_dir(AOC_INPUTS_CACHE_PATH)
+        .and_then(|dir| {
+            for entry in dir {
+                let entry = entry.expect("failed to read directory entry");
+                let metadata = entry
+                    .metadata()
+                    .expect("failed to read directory entry metadata");
+                if metadata.is_file() {
+                    let file_name = entry.file_name();
+                    let file_name = file_name.to_str().expect("failed to read file name");
+                    if file_name.starts_with(&expected_file_name_start)
+                        && file_name.ends_with(".txt")
+                    {
+                        let note = &file_name[17..(file_name.len() - 4)];
+                        match fs::read_to_string(entry.path()) {
+                            Err(_) => panic!("failed to read file"),
+                            Ok(content) => example_inputs.push((note.to_owned(), content)),
+                        }
                     }
                 }
             }
-        }
-        Ok(())
-    }).expect("failed to read directory");
+            Ok(())
+        })
+        .expect("failed to read directory");
     example_inputs
 }

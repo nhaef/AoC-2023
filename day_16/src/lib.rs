@@ -1,5 +1,5 @@
 use aoc_trait::AdventOfCodeSolution;
-use light_beam::{get_number_of_energized_tiles, get_max_number_of_energized_tiles};
+use light_beam::{get_max_number_of_energized_tiles, get_number_of_energized_tiles};
 
 mod light_beam;
 
