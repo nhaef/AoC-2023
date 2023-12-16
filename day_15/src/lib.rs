@@ -22,11 +22,11 @@ impl AdventOfCodeSolution for Solution {
     }
 
     fn solve_1(input: &str) -> Self {
-        Solution(SolutionType::Part1, get_hash_sum_of_init_sequence_steps(input))
+        Self(SolutionType::Part1, get_hash_sum_of_init_sequence_steps(input))
     }
 
     fn solve_2(input: &str) -> Self {
-        Solution(SolutionType::Part2, get_focussing_power(input))
+        Self(SolutionType::Part2, get_focussing_power(input))
     }
 }
 

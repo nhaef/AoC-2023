@@ -23,3 +23,4 @@ day_12 = { version = "0.1.0", path = "../day_12" }
 day_13 = { version = "0.1.0", path = "../day_13" }
 day_14 = { version = "0.1.0", path = "../day_14" }
 day_15 = { version = "0.1.0", path = "../day_15" }
+day_16 = { version = "0.1.0", path = "../day_16" }
