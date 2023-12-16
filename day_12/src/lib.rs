@@ -25,6 +25,6 @@ impl AdventOfCodeSolution for Solution {
 
 impl std::fmt::Display for Solution {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.0)
+        write!(f, "the sum of possible arrangement counts is {}", self.0)
     }
 }

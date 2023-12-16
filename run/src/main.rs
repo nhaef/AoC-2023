@@ -22,6 +22,7 @@ fn main() {
         || run_solution!(day_12::Solution),
         || run_solution!(day_13::Solution),
         || run_solution!(day_14::Solution),
+        || run_solution!(day_15::Solution),
     ];
 
     match Cli::parse().subcommand {

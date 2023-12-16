@@ -19,10 +19,6 @@ pub struct CliSolve {
     /// Execute specific day
     #[arg(short, long)]
     pub day: Option<usize>,
-
-    /// Execute only inputs with note
-    #[arg(short, long)]
-    pub example: bool,
 }
 
 /// Groups subcommands related to puzzle inputs.
