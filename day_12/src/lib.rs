@@ -6,25 +6,12 @@ mod record_2;
 pub struct Solution(usize);
 
 impl AdventOfCodeSolution for Solution {
+    fn day() -> usize {
+        12
+    }
+
     fn name() -> &'static str {
         "--- Day 12: Hot Springs ---"
-    }
-
-    fn input_1() -> &'static str {
-        include_str!("../inputs/input_puzzle")
-    }
-
-    fn input_2() -> &'static str {
-        include_str!("../inputs/input_puzzle")
-        // todo!()
-    }
-
-    fn input_1_example() -> &'static str {
-        include_str!("../inputs/input_example")
-    }
-
-    fn input_2_example() -> &'static str {
-        include_str!("../inputs/input_example")
     }
 
     fn solve_1(input: &str) -> Self {

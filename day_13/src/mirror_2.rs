@@ -8,15 +8,19 @@ pub fn summarize_all_notes(input: &str) -> usize {
         }
 
         // try to find horizontal reflection line
-        fn is_row_not_equal(up_index: usize, down_index: usize, current_pattern: &Vec<&str>, is_single_error_allowed: &mut bool) -> bool {
+        fn is_row_not_equal(
+            up_index: usize,
+            down_index: usize,
+            current_pattern: &Vec<&str>,
+            is_single_error_allowed: &mut bool,
+        ) -> bool {
             let row_up = current_pattern[up_index].as_bytes();
             let row_down = current_pattern[down_index].as_bytes();
             for i in 0..row_up.len() {
                 if row_up[i] != row_down[i] {
                     if *is_single_error_allowed {
                         *is_single_error_allowed = false;
-                    }
-                    else {
+                    } else {
                         return true;
                     }
                 }
@@ -42,7 +46,12 @@ pub fn summarize_all_notes(input: &str) -> usize {
                         continue 'line_loop;
                     }
                 }
-                if is_row_not_equal(up_index, down_index, &current_pattern, &mut is_single_error_allowed) {
+                if is_row_not_equal(
+                    up_index,
+                    down_index,
+                    &current_pattern,
+                    &mut is_single_error_allowed,
+                ) {
                     // this is not a perfect reflection, continue searching
                     break;
                 }
@@ -50,14 +59,18 @@ pub fn summarize_all_notes(input: &str) -> usize {
         }
 
         // try to find vertical reflection line
-        fn is_column_not_equal(left_index: usize, right_index: usize, current_pattern: &Vec<&str>, is_single_error_allowed: &mut bool) -> bool {
+        fn is_column_not_equal(
+            left_index: usize,
+            right_index: usize,
+            current_pattern: &Vec<&str>,
+            is_single_error_allowed: &mut bool,
+        ) -> bool {
             for i in 0..current_pattern.len() {
                 let current_pattern_row = current_pattern[i].as_bytes();
                 if current_pattern_row[left_index] != current_pattern_row[right_index] {
                     if *is_single_error_allowed {
                         *is_single_error_allowed = false;
-                    }
-                    else {
+                    } else {
                         return true;
                     }
                 }
@@ -83,7 +96,12 @@ pub fn summarize_all_notes(input: &str) -> usize {
                         continue 'line_loop;
                     }
                 }
-                if is_column_not_equal(left_index, right_index, &current_pattern, &mut is_single_error_allowed) {
+                if is_column_not_equal(
+                    left_index,
+                    right_index,
+                    &current_pattern,
+                    &mut is_single_error_allowed,
+                ) {
                     // this is not a perfect reflection, continue searching
                     break;
                 }

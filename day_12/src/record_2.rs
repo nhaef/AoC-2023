@@ -33,7 +33,7 @@ pub fn get_sum_of_arrangements(input: &str) -> usize {
             .collect::<Vec<_>>()
             .repeat(5);
         damaged_spring_group_sizes.push(0);
-        
+
         let report_line = report_line.as_bytes();
         let mut report_line_repeated = report_line.to_owned();
         for _ in 0..4 {
@@ -54,7 +54,9 @@ pub fn get_sum_of_arrangements(input: &str) -> usize {
                     states.retain_mut(|state| {
                         // handle char
                         if state.group_size_current != 0 {
-                            if state.group_size_current != state.group_sizes[state.group_sizes_cursor] {
+                            if state.group_size_current
+                                != state.group_sizes[state.group_sizes_cursor]
+                            {
                                 // group ends with invalid size
                                 return false;
                             }
@@ -81,7 +83,9 @@ pub fn get_sum_of_arrangements(input: &str) -> usize {
                     for i in 0..states.len() {
                         let state = &mut states[i];
                         if state.group_size_current != 0 {
-                            if state.group_size_current == state.group_sizes[state.group_sizes_cursor] {
+                            if state.group_size_current
+                                == state.group_sizes[state.group_sizes_cursor]
+                            {
                                 // found end group
                                 // => ? can only be .
                                 state.group_sizes_cursor += 1;
@@ -103,7 +107,8 @@ pub fn get_sum_of_arrangements(input: &str) -> usize {
                 c => panic!("found unexpected char {}", c),
             }
             // remove duplicate states
-            let mut visited_states: std::collections::HashMap<usize, RecordState<'_>> = std::collections::HashMap::new();    
+            let mut visited_states: std::collections::HashMap<usize, RecordState<'_>> =
+                std::collections::HashMap::new();
             for state in states.into_iter() {
                 let ident = state.group_size_current + state.group_sizes_cursor * 1_000;
                 if let Some(other_state) = visited_states.get_mut(&ident) {
@@ -114,7 +119,8 @@ pub fn get_sum_of_arrangements(input: &str) -> usize {
             }
             states = visited_states.into_values().collect();
         }
-        let arrangements = states.into_iter()
+        let arrangements = states
+            .into_iter()
             .filter(|s| s.group_sizes[s.group_sizes_cursor] == 0)
             .fold(0, |acc, s| acc + s.arrangements);
         sum += arrangements;

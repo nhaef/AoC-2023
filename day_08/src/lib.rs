@@ -7,24 +7,12 @@ mod state_machine;
 pub struct Solution(usize);
 
 impl AdventOfCodeSolution for Solution {
+    fn day() -> usize {
+        8
+    }
+
     fn name() -> &'static str {
         "--- Day 8: Haunted Wasteland ---"
-    }
-
-    fn input_1() -> &'static str {
-        include_str!("../inputs/input_puzzle")
-    }
-
-    fn input_2() -> &'static str {
-        include_str!("../inputs/input_puzzle")
-    }
-
-    fn input_1_example() -> &'static str {
-        include_str!("../inputs/input_example_1")
-    }
-
-    fn input_2_example() -> &'static str {
-        include_str!("../inputs/input_example_2")
     }
 
     fn solve_1(input: &str) -> Self {

@@ -6,24 +6,12 @@ mod boat_race;
 pub struct Solution(u64);
 
 impl AdventOfCodeSolution for Solution {
+    fn day() -> usize {
+        6
+    }
+
     fn name() -> &'static str {
         "--- Day 6: Wait For It ---"
-    }
-
-    fn input_1() -> &'static str {
-        include_str!("../inputs/input_puzzle")
-    }
-
-    fn input_2() -> &'static str {
-        include_str!("../inputs/input_puzzle")
-    }
-
-    fn input_1_example() -> &'static str {
-        include_str!("../inputs/input_example")
-    }
-
-    fn input_2_example() -> &'static str {
-        include_str!("../inputs/input_example")
     }
 
     fn solve_1(input: &str) -> Self {

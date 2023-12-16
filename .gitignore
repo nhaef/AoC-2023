@@ -14,4 +14,4 @@ Cargo.lock
 *.pdb
 
 # AoC Inputs
-inputs/
+.aoc_inputs/

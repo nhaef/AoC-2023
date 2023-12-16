@@ -8,24 +8,12 @@ mod seed_location_map;
 pub struct Solution(i64);
 
 impl AdventOfCodeSolution for Solution {
+    fn day() -> usize {
+        5
+    }
+
     fn name() -> &'static str {
         "--- Day 5: If You Give A Seed A Fertilizer ---"
-    }
-
-    fn input_1() -> &'static str {
-        include_str!("../inputs/input_puzzle_1")
-    }
-
-    fn input_2() -> &'static str {
-        include_str!("../inputs/input_puzzle_2")
-    }
-
-    fn input_1_example() -> &'static str {
-        include_str!("../inputs/input_example")
-    }
-
-    fn input_2_example() -> &'static str {
-        include_str!("../inputs/input_example")
     }
 
     fn solve_1(input: &str) -> Self {

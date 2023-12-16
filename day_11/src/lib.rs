@@ -6,24 +6,12 @@ mod space_image;
 pub struct Solution(usize);
 
 impl AdventOfCodeSolution for Solution {
+    fn day() -> usize {
+        11
+    }
+
     fn name() -> &'static str {
         "--- Day 11: Cosmic Expansion ---"
-    }
-
-    fn input_1() -> &'static str {
-        include_str!("../inputs/input_puzzle")
-    }
-
-    fn input_2() -> &'static str {
-        include_str!("../inputs/input_puzzle")
-    }
-
-    fn input_1_example() -> &'static str {
-        include_str!("../inputs/input_example")
-    }
-
-    fn input_2_example() -> &'static str {
-        include_str!("../inputs/input_example")
     }
 
     fn solve_1(input: &str) -> Self {

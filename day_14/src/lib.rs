@@ -8,24 +8,12 @@ mod parabolic_reflector_2;
 pub struct Solution(usize);
 
 impl AdventOfCodeSolution for Solution {
+    fn day() -> usize {
+        14
+    }
+
     fn name() -> &'static str {
         "--- Day 14: Parabolic Reflector Dish ---"
-    }
-
-    fn input_1() -> &'static str {
-        include_str!("../inputs/input_puzzle")
-    }
-
-    fn input_2() -> &'static str {
-        include_str!("../inputs/input_puzzle")
-    }
-
-    fn input_1_example() -> &'static str {
-        include_str!("../inputs/input_example")
-    }
-
-    fn input_2_example() -> &'static str {
-        include_str!("../inputs/input_example")
     }
 
     fn solve_1(input: &str) -> Self {
@@ -33,7 +21,10 @@ impl AdventOfCodeSolution for Solution {
     }
 
     fn solve_2(input: &str) -> Self {
-        Self(get_total_load_on_north_support_beam_after_cycles(input, 1_000_000_000))
+        Self(get_total_load_on_north_support_beam_after_cycles(
+            input,
+            1_000_000_000,
+        ))
     }
 }
 

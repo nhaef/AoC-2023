@@ -6,6 +6,8 @@ edition = "2021"
 [dependencies]
 clap = { version = "4.4.11", features = ["derive"] }
 colored = "2.0.4"
+reqwest = { version = "0.11.22", features = ["blocking"] }
+aoc_trait = { version = "0.1.0", path = "../aoc_trait" }
 day_01 = { version = "0.1.0", path = "../day_01" }
 day_02 = { version = "0.1.0", path = "../day_02" }
 day_03 = { version = "0.1.0", path = "../day_03" }
@@ -15,7 +17,6 @@ day_06 = { version = "0.1.0", path = "../day_06" }
 day_07 = { version = "0.1.0", path = "../day_07" }
 day_08 = { version = "0.1.0", path = "../day_08" }
 day_09 = { version = "0.1.0", path = "../day_09" }
-aoc_trait = { version = "0.1.0", path = "../aoc_trait" }
 day_10 = { version = "0.1.0", path = "../day_10" }
 day_11 = { version = "0.1.0", path = "../day_11" }
 day_12 = { version = "0.1.0", path = "../day_12" }

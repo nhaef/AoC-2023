@@ -1,16 +1,12 @@
 use clap::Parser;
+use cli::{Cli, CliInput, CliInputSub};
 use colored::*;
-
-use crate::cli::Args;
+use inputs::{download_puzzle_input, list_stored_puzzle_inputs, read_puzzle_input, read_puzzle_example_inputs};
 
 mod cli;
+mod inputs;
 
 fn main() {
-    if cfg!(debug_assertions) {
-        warn!("currently running in debug mode");
-        warn!("consider using '--release' flag for optimal performance");
-    }
-
     let solutions = vec![
         || run_solution!(day_01::Solution),
         || run_solution!(day_02::Solution),
@@ -28,11 +24,26 @@ fn main() {
         || run_solution!(day_14::Solution),
     ];
 
-    let args = Args::parse();
-    match args.day {
-        Some(day) => solutions[day - 1](),
-        None => solutions.into_iter().for_each(|f| f()),
-    }
+    match Cli::parse().subcommand {
+        cli::CliSub::Input(CliInput {
+            subcommand: CliInputSub::Download(download),
+        }) => {
+            download_puzzle_input(download.day, &download.session_cookie);
+        }
+        cli::CliSub::Input(CliInput {
+            subcommand: CliInputSub::List,
+        }) => list_stored_puzzle_inputs(),
+        cli::CliSub::Solve(solve) => {
+            if cfg!(debug_assertions) {
+                warn!("currently running in debug mode");
+                warn!("consider using '--release' flag for optimal performance");
+            }        
+            match solve.day {
+                Some(day) => solutions[day -1](),
+                None => solutions.into_iter().for_each(|f| f()),
+            }
+        }
+    };
 }
 
 type StdDuration = std::time::Duration;
@@ -91,14 +102,42 @@ macro_rules! run_solution {
         use aoc_trait::AdventOfCodeSolution;
         type Solution = $solution;
         println!("{}", Solution::name().white().bold());
-        let (time, result) = measure_time!(Solution::solve_1(Solution::input_1_example()));
-        println!("part 1 (example)  {} >> {}", Duration(time), result);
-        let (time, result) = measure_time!(Solution::solve_1(Solution::input_1()));
-        println!("part 1            {} >> {}", Duration(time), result);
-        let (time, result) = measure_time!(Solution::solve_2(Solution::input_2_example()));
-        println!("part 2 (example)  {} >> {}", Duration(time), result);
-        let (time, result) = measure_time!(Solution::solve_2(Solution::input_2()));
-        println!("part 2            {} >> {}", Duration(time), result);
+        let day = Solution::day();
+
+        // read puzzle input
+        let input = read_puzzle_input(day);
+        if input.is_none() {
+            println!("{}", "The puzzle inputs could not be found!".red().bold());
+            let command = format!("cargo run input download --session-cookie <your-session-cookie> --day {}", Solution::day()).white().bold();
+            println!("{}{}{}", "Use '".red().bold(), command, "' to download the inputs".red().bold());
+        }
+        let input_examples_1 = read_puzzle_example_inputs(day, 1);
+        let input_examples_2 = read_puzzle_example_inputs(day, 2);
+        let max_name_width = input_examples_1.iter().chain(input_examples_2.iter()).fold(0, |acc, x| usize::max(acc, x.0.len() + 2));
+
+        // run example inputs (part 1)
+        for (name, input) in input_examples_1 {
+            let (time, result) = measure_time!(Solution::solve_1(&input));
+            println!("part 1  {:<width$}{}  {}", name, Duration(time), result, width = max_name_width);   
+        }
+
+        // run solution (part 1)
+        if let Some(input) = &input {
+            let (time, result) = measure_time!(Solution::solve_1(input));
+            println!("part 1  {:<width$}{}  {}", "", Duration(time), result, width = max_name_width);    
+        }
+
+        // run example inputs (part 2)
+        for (name, input) in input_examples_2 {
+            let (time, result) = measure_time!(Solution::solve_2(&input));
+            println!("part 2  {:<width$}{}  {}", name, Duration(time), result, width = max_name_width);   
+        }
+
+        // run solution (part 2)
+        if let Some(input) = &input {
+            let (time, result) = measure_time!(Solution::solve_2(input));
+            println!("part 2  {:<width$}{}  {}", "", Duration(time), result, width = max_name_width);    
+        }
     }};
 }
 

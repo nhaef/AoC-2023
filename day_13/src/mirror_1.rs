@@ -27,7 +27,11 @@ pub fn summarize_all_notes(input: &str) -> usize {
         }
 
         // try to find vertical reflection line
-        fn is_column_not_equal(left_index: usize, right_index: usize, current_pattern: &Vec<&str>) -> bool {
+        fn is_column_not_equal(
+            left_index: usize,
+            right_index: usize,
+            current_pattern: &Vec<&str>,
+        ) -> bool {
             for i in 0..current_pattern.len() {
                 let current_pattern_row = current_pattern[i].as_bytes();
                 if current_pattern_row[left_index] != current_pattern_row[right_index] {

@@ -1,4 +1,4 @@
-use std::{collections::{HashMap, BTreeSet}, hash::DefaultHasher};
+use std::collections::HashMap;
 
 #[derive(Clone)]
 struct Interval(usize, usize);
@@ -17,9 +17,9 @@ struct Platform {
 
 impl Platform {
     fn state_hash(&self) -> usize {
-        self.rounded_rock_positions.iter().fold(0, |acc, p| {
-            acc + p.0 * p.1
-        })
+        self.rounded_rock_positions
+            .iter()
+            .fold(0, |acc, p| acc + p.0 * p.1)
     }
     fn new(input: &str) -> Self {
         let lines = input.lines().map(|l| l.as_bytes()).collect::<Vec<_>>();
@@ -53,10 +53,11 @@ impl Platform {
                             current_horizontal_intervals[y] += 1;
                         } else {
                             // finalize valid horizontal interval
-                            horizontal_intervals[y].push(Interval(current_horizontal_intervals[y], x));
+                            horizontal_intervals[y]
+                                .push(Interval(current_horizontal_intervals[y], x));
                             current_horizontal_intervals[y] = x + 1;
                         }
-                    },
+                    }
                     ROCK_ROUND => rounded_rock_positions.push(Position(x, y)),
                     c => panic!("unexpected char {}", c),
                 }
@@ -70,7 +71,8 @@ impl Platform {
             }
         }
         // finalize last horizontal interval
-        for (y, current_horizontal_interval) in current_horizontal_intervals.into_iter().enumerate() {
+        for (y, current_horizontal_interval) in current_horizontal_intervals.into_iter().enumerate()
+        {
             if current_horizontal_interval != width {
                 // finalize last non-zero length horizontal interval
                 horizontal_intervals[y].push(Interval(current_horizontal_interval, width));
@@ -87,7 +89,9 @@ impl Platform {
     }
 
     fn load_on_nort_support_beam(&self) -> usize {
-        self.rounded_rock_positions.iter().fold(0, |acc, pos| acc + self.height - pos.1)
+        self.rounded_rock_positions
+            .iter()
+            .fold(0, |acc, pos| acc + self.height - pos.1)
     }
 
     fn do_cycle(&mut self) {
@@ -103,7 +107,10 @@ impl Platform {
         'rock_loop: for rounded_rock_position in &mut self.rounded_rock_positions {
             let x = rounded_rock_position.0;
             let y = rounded_rock_position.1;
-            for (interval, adjusted_interval) in self.vertical_intervals[x].iter().zip(adjusted_vertical_intervals[x].iter_mut()) {
+            for (interval, adjusted_interval) in self.vertical_intervals[x]
+                .iter()
+                .zip(adjusted_vertical_intervals[x].iter_mut())
+            {
                 if interval.0 <= y && y < interval.1 {
                     // rounded_rock_position is in interval
                     rounded_rock_position.1 = adjusted_interval.0;
@@ -111,7 +118,10 @@ impl Platform {
                     continue 'rock_loop;
                 }
             }
-            panic!("the rock position {:02} / {:02} is not included in any vertical interval", rounded_rock_position.0, rounded_rock_position.1);
+            panic!(
+                "the rock position {:02} / {:02} is not included in any vertical interval",
+                rounded_rock_position.0, rounded_rock_position.1
+            );
         }
     }
 
@@ -120,7 +130,10 @@ impl Platform {
         'rock_loop: for rounded_rock_position in &mut self.rounded_rock_positions {
             let x = rounded_rock_position.0;
             let y = rounded_rock_position.1;
-            for (interval, adjusted_interval) in self.horizontal_intervals[y].iter().zip(adjusted_horizontal_intervals[y].iter_mut()) {
+            for (interval, adjusted_interval) in self.horizontal_intervals[y]
+                .iter()
+                .zip(adjusted_horizontal_intervals[y].iter_mut())
+            {
                 if interval.0 <= x && x < interval.1 {
                     // rounded_rock_position is in interval
                     rounded_rock_position.0 = adjusted_interval.0;
@@ -128,7 +141,10 @@ impl Platform {
                     continue 'rock_loop;
                 }
             }
-            panic!("the rock position {:02} / {:02} is not included in any horizontal interval", rounded_rock_position.0, rounded_rock_position.1);
+            panic!(
+                "the rock position {:02} / {:02} is not included in any horizontal interval",
+                rounded_rock_position.0, rounded_rock_position.1
+            );
         }
     }
 
@@ -137,7 +153,10 @@ impl Platform {
         'rock_loop: for rounded_rock_position in &mut self.rounded_rock_positions {
             let x = rounded_rock_position.0;
             let y = rounded_rock_position.1;
-            for (interval, adjusted_interval) in self.vertical_intervals[x].iter().zip(adjusted_vertical_intervals[x].iter_mut()) {
+            for (interval, adjusted_interval) in self.vertical_intervals[x]
+                .iter()
+                .zip(adjusted_vertical_intervals[x].iter_mut())
+            {
                 if interval.0 <= y && y < interval.1 {
                     // rounded_rock_position is in interval
                     rounded_rock_position.1 = adjusted_interval.1 - 1;
@@ -145,7 +164,10 @@ impl Platform {
                     continue 'rock_loop;
                 }
             }
-            panic!("the rock position {:02} / {:02} is not included in any vertical interval", rounded_rock_position.0, rounded_rock_position.1);
+            panic!(
+                "the rock position {:02} / {:02} is not included in any vertical interval",
+                rounded_rock_position.0, rounded_rock_position.1
+            );
         }
     }
 
@@ -154,7 +176,10 @@ impl Platform {
         'rock_loop: for rounded_rock_position in &mut self.rounded_rock_positions {
             let x = rounded_rock_position.0;
             let y = rounded_rock_position.1;
-            for (interval, adjusted_interval) in self.horizontal_intervals[y].iter().zip(adjusted_horizontal_intervals[y].iter_mut()) {
+            for (interval, adjusted_interval) in self.horizontal_intervals[y]
+                .iter()
+                .zip(adjusted_horizontal_intervals[y].iter_mut())
+            {
                 if interval.0 <= x && x < interval.1 {
                     // rounded_rock_position is in interval
                     rounded_rock_position.0 = adjusted_interval.1 - 1;
@@ -162,7 +187,10 @@ impl Platform {
                     continue 'rock_loop;
                 }
             }
-            panic!("the rock position {:02} / {:02} is not included in any horizontal interval", rounded_rock_position.0, rounded_rock_position.1);
+            panic!(
+                "the rock position {:02} / {:02} is not included in any horizontal interval",
+                rounded_rock_position.0, rounded_rock_position.1
+            );
         }
     }
 
@@ -170,13 +198,23 @@ impl Platform {
     fn print(&self) {
         let mut rounded_rock_positions = String::new();
         for position in &self.rounded_rock_positions {
-            rounded_rock_positions.push_str(&format!("platform: 'O' pos: {:02} / {:02}\n", position.0, position.1))
+            rounded_rock_positions.push_str(&format!(
+                "platform: 'O' pos: {:02} / {:02}\n",
+                position.0, position.1
+            ))
         }
-        println!("platform: rounded rock positions\n{}", rounded_rock_positions);
-        
+        println!(
+            "platform: rounded rock positions\n{}",
+            rounded_rock_positions
+        );
+
         let mut vertical_intervals = String::new();
         for (x, intervals) in self.vertical_intervals.iter().enumerate() {
-            let joined_intervals = intervals.iter().map(|i| format!("{}..{}", i.0, i.1)).collect::<Vec<String>>().join(" ");
+            let joined_intervals = intervals
+                .iter()
+                .map(|i| format!("{}..{}", i.0, i.1))
+                .collect::<Vec<String>>()
+                .join(" ");
             vertical_intervals.push_str(&format!("x = {:02} ", x));
             vertical_intervals.push_str(&joined_intervals);
             vertical_intervals.push('\n');
@@ -185,7 +223,11 @@ impl Platform {
 
         let mut horizontal_intervals = String::new();
         for (y, intervals) in self.horizontal_intervals.iter().enumerate() {
-            let joined_intervals = intervals.iter().map(|i| format!("{}..{}", i.0, i.1)).collect::<Vec<String>>().join(" ");
+            let joined_intervals = intervals
+                .iter()
+                .map(|i| format!("{}..{}", i.0, i.1))
+                .collect::<Vec<String>>()
+                .join(" ");
             horizontal_intervals.push_str(&format!("y = {:02} ", y));
             horizontal_intervals.push_str(&joined_intervals);
             horizontal_intervals.push('\n');
@@ -193,7 +235,9 @@ impl Platform {
         println!("platform: horizontal intervals\n{}", horizontal_intervals);
 
         let mut map = vec![vec!['.'; self.width]; self.height];
-        self.rounded_rock_positions.iter().for_each(|r| map[r.1][r.0] = 'O');
+        self.rounded_rock_positions
+            .iter()
+            .for_each(|r| map[r.1][r.0] = 'O');
         for line in map {
             let line = line.into_iter().collect::<String>();
             println!("platform: {}", line);

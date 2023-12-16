@@ -12,24 +12,12 @@ pub enum SolutionType {
 pub struct Solution(SolutionType, pub u32);
 
 impl AdventOfCodeSolution for Solution {
+    fn day() -> usize {
+        4
+    }
+
     fn name() -> &'static str {
         "--- Day 4: Scratchcards ---"
-    }
-
-    fn input_1() -> &'static str {
-        include_str!("../inputs/input_puzzle_1")
-    }
-
-    fn input_2() -> &'static str {
-        include_str!("../inputs/input_puzzle_2")
-    }
-
-    fn input_1_example() -> &'static str {
-        include_str!("../inputs/input_example")
-    }
-
-    fn input_2_example() -> &'static str {
-        include_str!("../inputs/input_example")
     }
 
     fn solve_1(input: &str) -> Self {
